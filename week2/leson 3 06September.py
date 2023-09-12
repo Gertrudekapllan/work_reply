@@ -12,7 +12,7 @@ import random
 
 arrey = []
 for i in range(10):
-    arrey.append(random.randint(7, 67))
+    arrey.append(random.randint(7, 69))
 print(arrey)
 print(min(arrey))
 n = [[1, 2, 3],
