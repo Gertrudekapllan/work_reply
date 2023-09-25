@@ -16,20 +16,21 @@ def get_dict():
         dict_food[name_one] = sale
     return dict_food
 
-d = get_dict()
-# print(d)
 
-# # Задача 2
-# # Используя словарь, созданный в предыдущей задаче, попросите пользователя ввести сумму
-# # и распечатайте все товары, цена которых меньше этой суммы.
+d = get_dict()
+print(d)
+
+# Задача 2
+# Используя словарь, созданный в предыдущей задаче, попросите пользователя ввести сумму
+# и распечатайте все товары, цена которых меньше этой суммы.
 
 sales = int(input('Введите СУММУ:'))
 empty_list = []
 for x, y in d.items():
     if y < sales:
         empty_list.append(x)
-#         print(x)
-# print(empty_list)
+        print(x)
+print(empty_list)
 # Задача 3
 # Напишите программу которая использует словарь, где ключами являются названия месяцев,
 # а значениями - количество дней в каждом месяце.
@@ -63,7 +64,7 @@ def quantity_day_in_month():
     return result
 
 
-# print(quantity_day_in_month())
+print(quantity_day_in_month())
 
 # Задача 4
 # Напишите программу которая использует словарь, который содержит десять имен пользователей и соответствующие пароли.
@@ -86,5 +87,3 @@ def check_user():
         print("PASSWORD DID NOT MUCH")
     else:
         print("Пользователь Вошелвсистемов")
-
-# print(check_user())
