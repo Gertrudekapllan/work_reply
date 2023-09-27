@@ -1,31 +1,4 @@
 
-def simple_dec(func):
-    def wrapper():
-        print("Something until")
-        func()
-        print("Something after")
-
-    return wrapper
-
-
-def second_dec(func):
-    def wrapper():
-        print("########")
-        func()
-        print("########")
-
-    return wrapper
-
-
-@second_dec
-@simple_dec
-def simple_func():
-    print("Простая функция")
-
-
-simple_func()
-
-
 # Задача 1 Напишите декоратор, который проверяет, что результат функции является
 # числом, и возвращает его. Если результат не является числом, декоратор
 # должен вернуть None.
