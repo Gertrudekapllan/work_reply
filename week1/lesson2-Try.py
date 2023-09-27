@@ -11,7 +11,7 @@ try:
     f = open(name_file, "r")
     print(f.read())
 except IOError:  # some other IOError
-    print("Oops, no file by that name")
+    print("no file by that name")
 # 2
 simple_number = int(input("Input number:"))
 try:
