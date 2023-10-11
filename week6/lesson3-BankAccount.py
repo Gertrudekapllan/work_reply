@@ -25,12 +25,20 @@ class BankAccount:
         else:
             print(f'Недостаточно средств!\nБаланс счёта составляет:{self.balance}$')
 
+    def interest_rate(self, interest_rate):
+        result = self.balance * interest_rate / 100
+        print(f"Ваш баланс составляет:{self.balance}\n"
+              f"Процентная ставка: {interest_rate}")
+
+        return result
+
 
 vlad = BankAccount(owner="vlad", balance=3030)
-print(vlad.owner)
 print(vlad.deposit(234))
 print(vlad.withdraw(24))
 print(vlad.withdraw(22224))
+print(vlad.interest_rate(10))
+
 
 
 # 2): Создайте класс Rectangle, у которого есть атрибуты экземпляра width и height. Добавьте
