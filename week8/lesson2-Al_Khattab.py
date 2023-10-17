@@ -1,3 +1,9 @@
+# Задача 1
+# Создайте симулятор магазина, включая классы Product, Customer, Cart и Store. Класс Product
+# должен иметь атрибуты, такие как название, цена и количество на складе. Класс Customer представляет
+# клиента и имеет атрибут cart для добавления товаров. Класс Store управляет инвентарем и покупками.
+# Реализуйте функциональность добавления товаров в корзину, расчет общей суммы и обновление инвентаря.
+
 class Product():
     name: str
     price: float
@@ -39,12 +45,10 @@ class Store():
 
 class Cart():
     __product_list: list
-    summ: float
     quantity: int
 
     def __init__(self):
         self.quantity = 0
-        self.summ = 0
         self.__product_list = []
 
     def get_product_list(self):
@@ -60,9 +64,7 @@ class Cart():
     def count_common_price(self, product_list):  # нужно возвращать общую стоимость
         summ = 0
         for product in product_list:
-            print(product, 'eee')
             summ += product['price'] * product['quantity']
-            print(summ,'summ')
         return summ
 
 
@@ -75,7 +77,7 @@ class Customer():
         self.__name = name
 
     def to_buy(self):
-        # TO DO   РЕАЛИЗОВАТЬ ФУНКЦИОНАЛ ПО ОЧИСТКЕ КОРЗИНЫ
+        # TODO РЕАЛИЗОВАТЬ ФУНКЦИОНАЛ ПО ОЧИСТКЕ КОРЗИНЫ ?
         store_globus.update_store(self.__cart.get_product_list())
 
     def add_product_to_cart(self, product_name, quantity):
@@ -85,9 +87,7 @@ class Customer():
                 self.__cart.add_prod_in_cart(product, quantity)
 
     def return_result_sum(self):
-        print((self.__cart.get_product_list()),'liii')
         result = self.__cart.count_common_price(self.__cart.get_product_list())
-        print(result,'salt')
         return result
 
 
@@ -100,3 +100,98 @@ cust = Customer("Imya")
 cust.add_product_to_cart("Яблоко", 5)
 cust.add_product_to_cart("Tomato", 5)
 print(cust.return_result_sum())
+
+
+# Задача 2
+# Создайте приложение для управления задачами. Реализуйте классы Task, TaskList, и User.
+# Task должен иметь атрибуты, такие как название, описание и статус (выполнено/не выполнено).
+# TaskList содержит список задач, и методы для добавления, удаления и фильтрации задач.
+# Класс User хранит информацию о пользователях и их списки задач. Реализуйте возможность регистрации
+# и авторизации пользователей.
+
+class Task:
+    def __init__(self, name, description):
+        self.name = name
+        self.description = description
+        self.completed = False
+
+    def mark_completed(self):
+        self.completed = True
+
+    def __str__(self):
+        status = "Выполнено" if self.completed else "Не выполнено"
+        return f"Задача: {self.name}\nОписание: {self.description}\nСтатус: {status}"
+
+
+class TaskList:
+    def __init__(self):
+        self.tasks = []
+
+    def add_task(self, task):
+        self.tasks.append(task)
+
+    def remove_task(self, task):
+        self.tasks.remove(task)
+
+    def filter_tasks(self, completed=False):
+        return [task for task in self.tasks if task.completed == completed]
+
+
+class User:
+    def __init__(self, username, password):
+        self.username = username
+        self.password = password
+        self.task_lists = {}
+
+    def create_task_list(self, list_name):
+        if list_name not in self.task_lists:
+            self.task_lists[list_name] = TaskList()
+
+    def get_task_list(self, list_name):
+        if list_name in self.task_lists:
+            return self.task_lists[list_name]
+        else:
+            return None
+
+    def authenticate(self, password):
+        return self.password == password
+
+
+# Создание пользователей
+user1 = User("user1", "password1")
+user2 = User("user2", "password2")
+
+# Регистрация пользователей и создание списков задач
+users = [user1, user2]
+for user in users:
+    user.create_task_list("Список дел")
+
+# Авторизация
+username = input("Введите имя пользователя: ")
+password = input("Введите пароль: ")
+authenticated_user = None
+
+for user in users:
+    if user.username == username and user.authenticate(password):
+        authenticated_user = user
+        break
+
+if authenticated_user:
+    print(f"Добро пожаловать, {authenticated_user.username}!")
+
+    # Работа с задачами
+    task1 = Task("Купить продукты", "Молоко, яйца, огурцы")
+    task2 = Task("Записать видео", "Сделать видеоурок по программированию")
+
+    task_list = authenticated_user.get_task_list("Список дел")
+    if task_list:
+        task_list.add_task(task1)
+        task_list.add_task(task2)
+
+        print("Задачи в списке:")
+        for task in task_list.tasks:
+            print(task)
+    else:
+        print("Список дел не найден.")
+else:
+    print("Ошибка авторизации.")
