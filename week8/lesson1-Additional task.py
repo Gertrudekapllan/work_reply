@@ -32,10 +32,10 @@ class Store:
     def __init__(self):
         self.inventory = []
 
-    def add_product(self, product):                    # Добавить товар
+    def add_product(self, product):                         # Добавить товар
         self.inventory.append(product)
 
-    def show_inventory(self):                          # Показать товар в инвентаре
+    def show_inventory(self):                               # Показать товар в инвентаре
         for product in self.inventory:
             print(f"Product: {product.name}, Price: ${product.price}, Quantity: {product.quantity}")
 
@@ -44,8 +44,8 @@ class Store:
             if product_in_inventory.name == product.name:   # Если товар_в_инвентаре.название == товар.название
                 product_in_inventory.quantity += quantity   # товар_в_инвентаре.количество += количество
 
-
 # Пример использования:
+
 product1 = Product("Laptop", 800, 5)
 product2 = Product("Smartphone", 400, 10)
 product3 = Product("Tablet", 300, 7)
@@ -64,7 +64,7 @@ customer1.add_to_cart(product2, 3)
 customer2.add_to_cart(product1, 1)
 customer2.add_to_cart(product3, 4)
 
-store.show_inventory()
+print(store.show_inventory())
 
 total1 = customer1.checkout()
 total2 = customer2.checkout()
