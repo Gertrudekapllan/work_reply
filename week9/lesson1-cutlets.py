@@ -13,3 +13,18 @@ def cutlets(k, m, n):
 
 result = cutlets(5, 2, 48)
 print(result)
+
+# РЕШЕНИЕ вариант два
+def cutlet_check(k, m, n):
+    full_cooking_time = (n // k) * 2 * m  # Общее время для k котлет
+    if n % k != 0:  # Если есть дополнительные котлеты
+        full_cooking_time += 2 * m  # Дополнительные 2m минут на дополнительную котлету
+    return full_cooking_time
+
+
+# Пример использования
+k = 3  # Максимум котлет на сковородке
+m = 5  # Время на одну сторону котлеты
+n = 10  # Всего котлет
+result = cutlet_check(k, m, n)
+print(f"Минимальное время для обжаривания {n} котлет: {result} минут")
