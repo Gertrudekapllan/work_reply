@@ -1,68 +1,68 @@
 # class decorators
 
-# def add_attrs(cls):
-#     class DecoretedClass(cls):
-#         test = "test"
-#
-#         def print_text(self, text):
-#             print(text)
-#
-#     return DecoretedClass
-#
-#
-# @add_attrs
-# class Test1:
-#     def print_hello(self):
-#         print("hello")
+def add_attrs(cls):
+    class DecoretedClass(cls):
+        test = "test"
+
+        def print_text(self, text):
+            print(text)
+
+    return DecoretedClass
 
 
-# obj1 = Test1()
-# print(obj1.test)
-# obj1.print_text("jefber")
-# obj1.print_hello()
-#
-# def add_prefix(prefix):
-#     def get_class(cls):
-#         class DecoretedClass(cls):
-#             def __init__(self, name):
-#                 super().__init__(name)
-#                 self.name = prefix + self.name
-#         return DecoretedClass
-#     return get_class
-#
-#
-# @add_prefix("Mr.")
-# class Person:
-#     def __init__(self, name):
-#         self.name = name
-#
-#     def get_name(self):
-#         print(self.name)
-#
-#
-# junko = Person("Jakshylyk")
-# junko.get_name()
-#
-# def add_year(func):
-#     def wrapper(*args, **kwargs):
-#         result = func(*args, **kwargs) + 1
-#         return result
-#     return wrapper
-#
-#
-# class Person:
-#     def __init__(self, name):
-#         self.name = name
-#
-#     def get_name(self):
-#         print(self.name)
-#
-#     @add_year
-#     def add_one_year_age(self, age):
-#         return age
-#
-#
-# nazi = Person("Nazgul")
+@add_attrs
+class Test1:
+    def print_hello(self):
+        print("hello")
+
+
+obj1 = Test1()
+print(obj1.test)
+obj1.print_text("jefber")
+obj1.print_hello()
+
+def add_prefix(prefix):
+    def get_class(cls):
+        class DecoretedClass(cls):
+            def __init__(self, name):
+                super().__init__(name)
+                self.name = prefix + self.name
+        return DecoretedClass
+    return get_class
+
+
+@add_prefix("Mr.")
+class Person:
+    def __init__(self, name):
+        self.name = name
+
+    def get_name(self):
+        print(self.name)
+
+
+junko = Person("Jakshylyk")
+junko.get_name()
+
+def add_year(func):
+    def wrapper(*args, **kwargs):
+        result = func(*args, **kwargs) + 1
+        return result
+    return wrapper
+
+
+class Person:
+    def __init__(self, name):
+        self.name = name
+
+    def get_name(self):
+        print(self.name)
+
+    @add_year
+    def add_one_year_age(self, age):
+        return age
+
+
+nazi = Person("Nazgul")
 
 # abstract
 import csv
@@ -70,30 +70,30 @@ import random
 from abc import ABC, abstractmethod
 
 
-# class FigureAbstract(ABC):
-#
-#     @abstractmethod
-#     def get_sqare(self):
-#         pass
-#
-#     @abstractmethod
-#     def get_perimeter(self):
-#         pass
-#
-#
-# class Rectangle(FigureAbstract):
-#     def __init__(self, side_a, side_b):
-#         self.side_a = side_a
-#         self.side_b = side_b
-#
-#     def get_sqare(self):
-#         return self.side_a * self.side_b
-#
-#     def get_perimeter(self):
-#         return (self.side_a + self.side_b) * 2
+class FigureAbstract(ABC):
 
-# reg1 = FigureAbstract()
-# print(reg1.get_sqare())
+    @abstractmethod
+    def get_sqare(self):
+        pass
+
+    @abstractmethod
+    def get_perimeter(self):
+        pass
+
+
+class Rectangle(FigureAbstract):
+    def __init__(self, side_a, side_b):
+        self.side_a = side_a
+        self.side_b = side_b
+
+    def get_sqare(self):
+        return self.side_a * self.side_b
+
+    def get_perimeter(self):
+        return (self.side_a + self.side_b) * 2
+
+reg1 = FigureAbstract()
+print(reg1.get_sqare())
 # mixin ооп
 
 class RegisterMixin:
