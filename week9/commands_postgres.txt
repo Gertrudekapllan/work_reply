@@ -50,4 +50,102 @@ SELECT *
 FROM products
 WHERE category_id IN (1,3,5,7);
 
+SELECT *
+From customers
+WHERE country NOT IN ('Mexico','Germany','Canada');
+
+SELECT *
+FROM products
+WHERE category_id NOT IN (1,2,3,4,5);
+
+SELECT DISTINCT country
+FROM customers;
+
+SELECT DISTINCT country
+FROM customers
+ORDER BY country;
+
+SELECT DISTINCT country
+FROM customers
+ORDER BY country ASC;
+
+SELECT DISTINCT country
+FROM customers
+ORDER BY country DESC;
+
+SELECT DISTINCT country, city
+FROM customers
+ORDER BY country DESC, city DESC;
+
+SELECT ship_city, order_date
+FROM orders
+WHERE ship_city = 'London'
+ORDER BY order_date;
+
+SELECT MIN(order_date)
+FROM orders
+WHERE ship_city = 'London';
+
+SELECT ship_city, order_date
+FROM orders
+WHERE ship_city = 'London'
+ORDER BY order_date DESC;
+
+
+SELECT MAX(order_date)
+FROM orders
+WHERE ship_city = 'London';
+
+SELECT AVG (unit_price)
+FROM products
+WHERE discontinued <> 1;
+
+SELECT SUM(units_in_stock)
+FROM products
+WHERE discontinued <> 1;
+
+SELECT SUM(unit_price * units_in_stock)
+FROM products
+WHERE discontinued <> 1;
+
+UPDATE public.competition
+SET city='Victor'
+WHERE id NOT IN (2,3,9,4,7,5) ;
+
+UPDATE public.competition
+SET city='Москва'
+WHERE id = 10;
+
+SELECT sportsman_name
+FROM sportsman
+WHERE sportsman_name LIKE 'М%' AND year_of_birth ::TEXT NOT LIKE '%7';
+
+SELECT AVG(rank) AS average_rank
+FROM sportsman
+WHERE year_of_birth = 2000;
+
+SELECT sportsman_name
+FROM sportsman
+WHERE rank < (SELECT AVG(rank) FROM sportsman WHERE year_of_birth = 2000)
+AND year_of_birth = 2000;
+
+UPDATE public.competition
+SET city='Victor'
+WHERE id BETWEEN 13 AND 18;
+
+SELECT DISTINCT s.sportsman_name, s.personal_record, c.world_record
+FROM sportsman s
+JOIN competition c ON s.personal_record = c.world_record;
+
+SELECT sportsman_name, personal_record
+FROM sportsman;
+SELECT competition_name, world_record
+FROM competition;
+
+DELETE FROM competition
+WHERE world_record = 20;
+
+DELETE FROM sportsman
+WHERE year_of_birth = 1988;
+
 
