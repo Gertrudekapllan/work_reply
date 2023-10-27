@@ -1,0 +1,53 @@
+SELECT company_name, contact_name, phone, country
+FROM customers
+WHERE country = 'USA';
+
+SELECT *
+FROM products
+WHERE unit_price > 20;
+
+SELECT COUNT(*)
+FROM products
+WHERE unit_price < 30;
+
+SELECT *
+FROM products
+WHERE discontinued = 1;
+
+SELECT *
+FROM customers
+WHERE city = 'Berlin' OR city = 'London' OR city = 'San Francisco';
+
+SELECT *
+FROM orders
+WHERE shipped_date < '1998-04-30' AND (freight < 75 OR freight > 150);
+
+SELECT *
+FROM orders
+WHERE shipped_date < '1998-04-30' AND (freight < 75 AND freight > 50);
+
+SELECT *
+FROM orders
+WHERE freight >= 20 AND freight <= 40;
+
+SELECT COUNT(*)
+FROM orders
+WHERE freight BETWEEN 20 AND 40;
+
+SELECT *
+FROM orders
+WHERE order_date BETWEEN '1998-03-30' AND '1998-05-01';
+
+SELECT *
+FROM customers
+WHERE country = 'Mexico' OR country = 'Germany' OR country = 'Canada';
+
+SELECT *
+FROM customers
+WHERE country IN ('Mexico','Germany','Canada');
+
+SELECT *
+FROM products
+WHERE category_id IN (1,3,5,7);
+
+
