@@ -22,8 +22,8 @@ cur.execute("select id, sportsman_name, year_of_birth, country from sportsman")
 list_sportsmen = cur.fetchall()
 count = 0
 for i in list_sportsmen:
-    count +=1
-    print(i)
+    if i[3] == 'Москва':
+        print(i)
 
 conn.commit()
 conn.close()
