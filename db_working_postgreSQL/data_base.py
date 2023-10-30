@@ -77,6 +77,9 @@ db.create_tables([Category, Product])
 # 9. Обновление поля "available" для товара "banana" и сохранение его
 # banana.available = False
 # banana.save()
+# Удаляем товар "banana" (в этом контексте бездействующая операция, поскольку "banana" не создана в этом фрагменте кода)
+# banana = Product.get(name="banana")
+# banana.delete_instance()
 
 # 10. Получение всех товаров с именем "apple" из базы данных
 # for product in Product.select().filter(Product.name=='apple'):
