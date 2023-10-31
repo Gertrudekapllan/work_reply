@@ -39,9 +39,15 @@ db.connect()
 
 # Создание таблиц в базе данных для моделей Category и Product
 db.create_tables([Category, Product])
+# Этот код выполняет запрос к базе данных, чтобы выбрать информацию о продуктах вместе с названием категории,
+# к которой они относятся. Для этого используется Peewee ORM. Запрос выбирает имя продукта, его цену и идентификатор
+# категории, а также название категории с алиасом "category_name". Продукты и категории объединяются на основе
+# соответствия идентификатора категории в таблице продуктов и идентификатора категории в таблице категорий.
+
 data = (Product.select(Product.name, Product.price, Product.category, Category.name.alias('category_name'))
         .join(Category, on=(Product.category == Category.id)))
 
+# В цикле 'for' выводим результаты запроса на экран, включая имя продукта, идентификатор категории и название категории.
 for product in data:
     print(product.name, product.category.category_name)
 
@@ -78,12 +84,9 @@ for product in data:
     # banana = Product.get(id(2))
     # banana.delete_instance()
 
-    # 9. Обновление поля "available" для товара "banana" и сохранение его
-    # banana.available = False
-    # banana.save()
-    # Удаляем товар "banana" (в этом контексте бездействующая операция, поскольку "banana" не создана в этом фрагменте кода)
-    # banana = Product.get(name="banana")
-    # banana.delete_instance()
+    # 9. Обновление поля "available" для товара "banana" и сохранение его banana.available = False banana.save()
+    # Удаляем товар "banana" (в этом контексте бездействующая операция, поскольку "banana" не создана в этом
+    # фрагменте кода) banana = Product.get(name="banana") banana.delete_instance()
 
     # 10. Получение всех товаров с именем "apple" из базы данных
     # for product in Product.select().filter(Product.name=='apple'):
