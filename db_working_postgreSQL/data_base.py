@@ -1,5 +1,4 @@
 from datetime import datetime
-from decouple import config
 from peewee import *
 
 # Подключение к базе данных с использованием настроек из .env файла
@@ -40,47 +39,52 @@ db.connect()
 
 # Создание таблиц в базе данных для моделей Category и Product
 db.create_tables([Category, Product])
+data = (Product.select(Product.name, Product.price, Product.category, Category.name.alias('category_name'))
+        .join(Category, on=(Product.category == Category.id)))
 
-# Примеры операций с моделями:
-# Далее следуют примеры операций с моделями Category и Product. Раскомментируйте для использования.
+for product in data:
+    print(product.name, product.category.category_name)
 
-# 1. Создание объекта Category (категория товаров) и сохранение его в базу данных
-# category_obj = Category(name="fruits", description="cool")
-# category_obj.save()
+    # Примеры операций с моделями:
+    # Далее следуют примеры операций с моделями Category и Product. Раскомментируйте для использования.
 
-# 2. Создание новой категории "vegetables" и добавление ее в базу данных
-# Category.insert(name="vegetables", description="nice").execute()
+    # 1. Создание объекта Category (категория товаров) и сохранение его в базу данных
+    # category_obj = Category(name="fruits", description="cool")
+    # category_obj.save()
 
-# 3. Создание объекта Product (товар) и сохранение его в базу данных
-# category_obj = Product(name="cherry", price=300, count=20, category=1)
-# category_obj.save()
+    # 2. Создание новой категории "vegetables" и добавление ее в базу данных
+    # Category.insert(name="vegetables", description="nice").execute()
 
-# 4. Вставка нового товара "apple" в базу данных
-# Product.insert(name="apple", price=280, count=50, category=1).execute()
+    # 3. Создание объекта Product (товар) и сохранение его в базу данных
+    # category_obj = Product(name="cherry", price=300, count=20, category=1)
+    # category_obj.save()
 
-# 5. Получение всех товаров из базы данных и сортировка их по ID по возрастанию
-# data = Product.select().order_by(Product.id.asc())
+    # 4. Вставка нового товара "apple" в базу данных
+    # Product.insert(name="apple", price=280, count=50, category=1).execute()
 
-# 6. Обновление поля "available" для каждого товара
-# for i in data:
-#     i.available = True
-#     i.save()
+    # 5. Получение всех товаров из базы данных и сортировка их по ID по возрастанию
+    # data = Product.select().order_by(Product.id.asc())
 
-# 7. Получение категории с ID 1
-# data = Category.get(id=1)
-# print(data.description)
+    # 6. Обновление поля "available" для каждого товара
+    # for i in data:
+    #     i.available = True
+    #     i.save()
 
-# 8. Удаление товара "banana" из базы данных
-# banana = Product.get(id(2))
-# banana.delete_instance()
+    # 7. Получение категории с ID 1
+    # data = Category.get(id=1)
+    # print(data.description)
 
-# 9. Обновление поля "available" для товара "banana" и сохранение его
-# banana.available = False
-# banana.save()
-# Удаляем товар "banana" (в этом контексте бездействующая операция, поскольку "banana" не создана в этом фрагменте кода)
-# banana = Product.get(name="banana")
-# banana.delete_instance()
+    # 8. Удаление товара "banana" из базы данных
+    # banana = Product.get(id(2))
+    # banana.delete_instance()
 
-# 10. Получение всех товаров с именем "apple" из базы данных
-# for product in Product.select().filter(Product.name=='apple'):
-#     print(product.name)
+    # 9. Обновление поля "available" для товара "banana" и сохранение его
+    # banana.available = False
+    # banana.save()
+    # Удаляем товар "banana" (в этом контексте бездействующая операция, поскольку "banana" не создана в этом фрагменте кода)
+    # banana = Product.get(name="banana")
+    # banana.delete_instance()
+
+    # 10. Получение всех товаров с именем "apple" из базы данных
+    # for product in Product.select().filter(Product.name=='apple'):
+    #     print(product.name)
