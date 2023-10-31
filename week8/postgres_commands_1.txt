@@ -1,102 +1,112 @@
-# Добавить данные в бд university
+1. # Добавление нового студента в таблицу с указанием фамилии, имени, возраста и других данных.
+   # Значения spec_id, course_id, facultet_id и form_id установлены в NULL.
+   INSERT INTO public.student(
+       last_name, name, age, spec_id, course_id, facultet_id, form_id)
+       VALUES ( 'Bondarenko', 'Roman', 32, null, null, null, null);
 
-1 INSERT INTO public.student(
-	last_name, name, age, spec_id, course_id, facultet_id, form_id)
-	VALUES ( 'Bondarenko', 'Roman', 32, null, null, null, null);
+2. # Обновление названия факультета с 'Медицины' на 'Медицинский факультет'.
+   UPDATE public.facultet
+       SET name='Медицинский факультет'
+       WHERE name='Медицины';
 
-2 UPDATE public.facultet
-	SET name='Медицинский факультет'
-	WHERE name='Медицины';
+3. # Обновление названия факультета с 'Медицинский' для факультета с ID=4.
+   UPDATE public.facultet
+       SET name='Медицинский'
+       WHERE id=4;
 
-3 UPDATE public.facultet
-	SET name='Медицинский'
-	WHERE id=4;
+4. # Вывод всех записей из таблицы "facultet" с сортировкой по ID по возрастанию.
+   SELECT * FROM public.facultet
+   ORDER BY id ASC;
 
-4 SELECT * FROM public.facultet
-ORDER BY id ASC
+5. # Вывод всех записей из таблицы "facultet" с сортировкой по названию по алфавиту.
+   SELECT * FROM public.facultet
+   ORDER BY name ASC;
 
-5 SELECT * FROM public.facultet
-ORDER BY name ASC
+6. # Добавление нового студента в таблицу с указанием фамилии, имени, возраста и других данных.
+   # Значение facultet_id установлено в 4, остальные поля - NULL.
+   INSERT INTO public.student(
+       last_name, name, age, spec_id, course_id, facultet_id, form_id)
+       VALUES ('Marararov', 'Borsheed', 108, null, null, 4, null);
 
-6 INSERT INTO public.student(
-	last_name, name, age, spec_id, course_id, facultet_id, form_id)
-	VALUES ('Marararov', 'Borsheed', 108, null, null, 4, null);
+7. # Обновление поля "facultet_id" для студента с именем 'Dastan' и установка значения 4.
+   UPDATE public.student
+       SET facultet_id=4
+       WHERE name='Dastan';
 
-7 UPDATE public.student
-	SET facultet_id=4
-	WHERE name='Dastan';
+8. # Удаление студента с ID=7.
+   DELETE FROM public.student
+       WHERE id=7;
 
-8 DELETE FROM public.student
-	WHERE id=7;
+9. # TODO: DELETE FROM public.student
+   # TODO: WHERE id=0 or id=10;
 
-                #9 TODO DELETE FROM public.student
-                #TODO	WHERE id=0 or id=10;
+10. # Обновление поля "facultet_id" для студента с ID=4.
+    UPDATE public.student
+        SET facultet_id=4
+        WHERE id=4 ;
 
-10 UPDATE public.student
-	SET facultet_id=4
-	WHERE id=4 ;
+11. # Вставка новой специализации "Лечебное дело" для факультета с ID=4.
+    INSERT INTO public.spec(
+        name, facultet_id)
+        VALUES ('Лечебное дело', 4);
 
-11 INSERT INTO public.spec(
-	name, facultet_id)
-	VALUES ('Лечебное дело', 4);
+12. # Вставка новой специализации "Педиатрия" для факультета с ID=4.
+    INSERT INTO public.spec(
+        name, facultet_id)
+        VALUES ('Педиатрия', 4;
+13. # Вывод всех записей из таблицы "student", где возраст (age) начинается с "2".
+    SELECT * FROM student WHERE age::TEXT LIKE '2%';
 
-12 INSERT INTO public.spec(
-	name, facultet_id)
-	VALUES ('Педиатрия', 4);
+14. # Обновление поля "start_year" для студента с ID=5, установка значения '2023-11-19 09:04:05.335246'.
+    UPDATE student SET start_year = '2023-11-19 09:04:05.335246' WHERE id=5;
 
+15. # Вывод всех записей из таблицы "student", где поле "start_year" (как строка) содержит "-10-" в тексте.
+    SELECT * FROM student WHERE start_year::TEXT LIKE '%-10-%';
 
+16. # Вывод фамилий студентов и их длины, сортировка по длине фамилии в убывающем порядке.
+    SELECT last_name, length(last_name) as len FROM student ORDER BY len DESC;
 
+17. # Вывод фамилий студентов и их количество, сгруппированных по фамилии.
+    SELECT last_name, COUNT(last_name) as len  FROM student GROUP BY last_name;
 
-SELECT * FROM student WHERE age::TEXT LIKE '2%';
+18. # Вывод количества студентов с возрастом 21 год.
+    SELECT COUNT(age) as count  FROM student where age=21;
 
+19. # Вывод фамилий студентов и их номера курсов, с сортировкой по номеру курса, с учётом NULL значений.
+    select last_name, course_id from student order by course_id NULLS first;
 
-UPDATE student SET start_year = '2023-11-19 09:04:05.335246' WHERE id=5;
+20. # Вывод уникальных фамилий студентов.
+    select distinct last_name from student;
 
-SELECT * FROM student WHERE start_year::TEXT LIKE '%-10-%';
+21. # Вывод всех студентов с возрастом от 18 до 23 лет.
+    select *  from student WHERE age BETWEEN 18 AND 23;
 
+22. # Вывод всех студентов с возрастом больше 18 и меньше 23 лет.
+    select *  from student WHERE age > 18 AND AGE < 23;
 
-SELECT last_name, length(last_name) as len FROM student ORDER BY len DESC;
+23. # Вывод записей из таблицы "student" с сортировкой по фамилии, вывод ограничен 2 записями, начиная с 5-й записи.
+    SELECT * FROM student order by last_name limit 2 offset 4;
 
+24. # Вывод фамилий студентов и их даты начала обучения, где дата начала обучения соответствует '2023-11-19'.
+    SELECT last_name, start_year  FROM student where CAST(start_year as date)='2023-11-19';
 
-SELECT last_name, COUNT(last_name) as len  FROM student GROUP BY last_name;
+25. # Вывод фамилий студентов и их даты начала обучения, где месяц начала обучения равен 10 (октябрь).
+    SELECT last_name, start_year  FROM student where DATE_PART('month',start_year)='10';
 
+26. # Вывод всех студентов с возрастом, отличным от 17 лет.
+    SELECT * FROM student WHERE age != 17;
 
-SELECT COUNT(age) as count  FROM student where age=21;
+27. # Вывод всех студентов с возрастом больше 17 лет и с указанным "facultet_id" равным 4.
+    SELECT * FROM student WHERE age > 17 AND facultet_id=4;
 
+28. # Вывод всех студентов с возрастом больше 17 лет и "facultet_id" равным 4, с сортировкой по возрасту в убывающем порядке.
+    SELECT * FROM student WHERE age > 17 AND facultet_id=4 ORDER BY AGE DESC;
 
-select last_name, course_id from student order by course_id NULLS first;
+29. # Вывод всех студентов, у которых фамилия содержит букву "a".
+    SELECT * FROM student WHERE last_name LIKE '%a%';
 
+30. # Добавление новой колонки "start_year" в таблицу "student" с типом данных TIMESTAMP.
+    ALTER TABLE student ADD COLUMN start_year TIMESTAMP;
 
-select distinct last_name from student;
-
-
-select *  from student WHERE age BETWEEN 18 AND 23;
-
-
-select *  from student WHERE age > 18 AND AGE < 23;
-
-
-SELECT * FROM student order by last_name limit 2 offset 4;
-
-
-SELECT last_name, start_year  FROM student where CAST(start_year as date)='2023-11-19';
-
-
-SELECT last_name, start_year  FROM student where DATE_PART('month',start_year)='10';
-
-
-SELECT * FROM student WHERE age !=17;
-
-SELECT * FROM student WHERE age >17 AND facultet_id=4;
-
-
-SELECT * FROM student WHERE age >17 AND facultet_id=4 ORDER BY AGE DESC;
-
-
-SELECT * FROM student WHERE last_name LIKE '%a%';
-
-
-ALTER TABLE student ADD COLUMN start_year TIMESTAMP;
-
-
-UPDATE student SET start_year = now();
+31. # Обновление поля "start_year" для всех студентов, установка текущей даты и времени.
+    UPDATE student SET start_year = now();
