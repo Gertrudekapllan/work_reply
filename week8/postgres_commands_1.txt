@@ -110,3 +110,37 @@
 
 31. # Обновление поля "start_year" для всех студентов, установка текущей даты и времени.
     UPDATE student SET start_year = now();
+
+32. # Вывод уникальных фамилий студентов.
+    select distinct last_name from student;
+
+33. # Вывод всех студентов с возрастом от 18 до 23 лет.
+    select *  from student WHERE age BETWEEN 18 AND 23;
+
+34. # Вывод всех студентов с возрастом больше 18 и меньше 23 лет.
+    select *  from student WHERE age > 18 AND AGE < 23;
+
+35. # Вывод всех студентов, упорядоченных по фамилии, вывод ограничен 2 записями, начиная с 5-й записи.
+    SELECT * FROM student order by last_name limit 2 offset 4;
+
+36. # Вывод фамилий студентов и их дат начала обучения, где дата начала обучения соответствует '2023-11-19'.
+    SELECT last_name, start_year  FROM student where CAST(start_year as date)='2023-11-19';
+
+37. # Вывод фамилий студентов и их дат начала обучения, где месяц начала обучения равен 10 (октябрь).
+    SELECT last_name, start_year  FROM student where DATE_PART('month',start_year)='10';
+
+38. # Вывод всех студентов с возрастом, отличным от 17 лет.
+    SELECT * FROM student WHERE age != 17;
+
+39. # Вывод всех студентов с возрастом больше 17 лет и "facultet_id" равным 4.
+    SELECT * FROM student WHERE age > 17 AND facultet_id=4;
+
+40. # Вывод всех студентов с возрастом больше 17 лет и "facultet_id" равным 4, с сортировкой по возрасту в убывающем порядке.
+    SELECT * FROM student WHERE age > 17 AND facultet_id=4 ORDER BY AGE DESC;
+
+41. # Вывод всех студентов, у которых фамилия содержит букву "a".
+    SELECT * FROM student WHERE last_name LIKE '%a%';
+
+42. # Добавление новой колонки "start_year" в таблицу "student" с типом данных TIMESTAMP.
+    ALTER TABLE student ADD COLUMN start_year TIMESTAMP;
+
