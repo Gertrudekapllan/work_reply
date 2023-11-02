@@ -57,7 +57,8 @@ def get_element_from_page(body):
     for product_element in product_list:
         name = product_element.find(class_='product_item_title').text
         price = product_element.find(class_='product_item_price').text
-        print(name, price)
+        # sumbol = product_element.find(class_='woocommerce-Price-currencySymbol').text
+        print(name, price )
         # price = float(product_element.find('span', class_='price').text.strip('$'))
         # category = 'Категория A'  # Замените на реальное значение категории
         # product_data.append({'name': name, 'price': price, 'category': category})
