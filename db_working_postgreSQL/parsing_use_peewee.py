@@ -63,7 +63,6 @@ def get_menu_categories(body):
         Category.insert(name=name, link=link, description=name).execute()
 
 
-
 def save_products():
     result_list_of_categories = list(Category.select(Category.link, Category.name, Category.id).execute())
     for item in result_list_of_categories:
@@ -79,7 +78,6 @@ def get_products_from_page(body, c_id):
         price = product_element.select_one('.product_item_price .amount').text
         price_digit = re.findall(r'\d+', price)
         Product.create(name=name, price=price_digit[0], category=c_id)
-
 
 
 # Выполните HTTP-запрос и получите HTML-страницу
