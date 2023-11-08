@@ -13,12 +13,31 @@ base_url = "https://www.mashina.kg/search/honda/all/?currency=2&sort_by=upped_at
 make = "acura"
 list_result_of_cars = []
 
-#TODO пагинация: 1 - вычислить количество найденных машин с помощью бьют супа. класс кнопки общего колва найденных машин
+
+# TODO пагинация: 1 - вычислить количество найденных машин с помощью бьют супа. класс кнопки общего колва найденных машин
 # и получить атрибут - число. <input type="submit" class="btn btn-primary" id="search-submit" value="Найдено 4057
 # объявлений"> с помощью ре можно получчить только число. 2 - сделать бескон число обходов цикла по страницам пока
 # результат не вернет пустой список то и будет условием прерывания цикла.
 
-def get_all_pages(body):
+
+def get_cars_on_page(soup):
+    list_result_of_cars_local = soup.select('.table-view-list .list-item')
+    for item in list_result_of_cars_local:
+        name = item.find(class_='name').get_text().strip()
+        images = item.find(class_='lazy-image')
+        image = ''
+        if images is not None:
+            image = images['src']
+        price = item.find(class_='block price').get_text().strip()
+        price_parts = price.split()
+        print(name, image)
+        # # Выберите вторую часть, которая содержит цену в сомах
+        # price_soms = price_parts[0:3]
+        # print("цена в долл:", price_soms)
+        # print(name, price)
+
+
+def get_all_pages():
     count = 1
     base_url = "https://www.mashina.kg/search/honda/all/?currency=2&sort_by=upped_at+desc&page="
     headers = {
@@ -30,42 +49,18 @@ def get_all_pages(body):
         req = request.Request(base_url + str(count), headers=headers)
         response = request.urlopen(req)
         soup = BeautifulSoup(response, 'html.parser')
-
+        no_res_soup = soup.find(class_='list-item')
+        get_cars_on_page(soup)
+        if no_res_soup is None:
+            no_results = True
         count += 1
 
 
-#
-# def get_cars_on_page(body):
-#     soup = BeautifulSoup(body, 'html.parser')
-#     list_result_of_cars_local = soup.select('.table-view-list .list-item')
-#     for item in list_result_of_cars_local:
-#         name = item.find(class_='name').get_text().strip()
-#         image = item.find(class_='lazy-image')['data-src']
-#         price = item.find(class_='block price').get_text().strip()
-#         price_parts = price.split()
-#         # print(price, 'цена в сомах')
-#         # # Выберите вторую часть, которая содержит цену в сомах
-#         # price_soms = price_parts[0:3]
-#         # print("цена в долл:", price_soms)
-#         # print(name, price)
-#
-#
-# get_all_pages()
+get_all_pages()
 
-# def get_quantity_cars(body):
-#     soup = BeautifulSoup(body, 'html.parser')
-#     found_count_element = soup.find(class_='btn btn-primary')
-#     print(found_count_element)
-#     if found_count_element:
-#         value = found_count_element['value']
-#         value = value.split()
-#         print("Найдено машин:", value[1])
-#
-#
 # req = request.Request(base_url, headers=headers)
 # response = request.urlopen(req)
 # get_quantity_cars(body=response)
-
 
 
 # # CSV-файл для записи данных
