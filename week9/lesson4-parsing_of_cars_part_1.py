@@ -14,7 +14,7 @@ make = "acura"
 list_result_of_cars = []
 
 
-# TODO пагинация: 1 - вычислить количество найденных машин с помощью бьют супа. класс кнопки общего колва найденных машин
+#TODO пагинация: 1 - вычислить количество найденных машин с помощью бьют супа. класс кнопки общего колва найденных машин
 # и получить атрибут - число. <input type="submit" class="btn btn-primary" id="search-submit" value="Найдено 4057
 # объявлений"> с помощью ре можно получчить только число. 2 - сделать бескон число обходов цикла по страницам пока
 # результат не вернет пустой список то и будет условием прерывания цикла.
@@ -23,22 +23,23 @@ list_result_of_cars = []
 def get_cars_on_page(soup):
     list_result_of_cars_local = soup.select('.table-view-list .list-item')
     for item in list_result_of_cars_local:
-        name = item.find(class_='name').get_text().strip()
+        car = {'name': None, 'image': None, 'price_dollar': None, 'price_som': None}
+        car['name'] = item.find(class_='name').get_text().strip()
         images = item.find(class_='lazy-image')
         image = ''
         if images is not None:
             image = images['src']
-        price = item.find(class_='block price').get_text().strip()
-        price_parts = price.split()
-        print(name, image)
-        # # Выберите вторую часть, которая содержит цену в сомах
-        # price_soms = price_parts[0:3]
-        # print("цена в долл:", price_soms)
-        # print(name, price)
+        car['image'] = image
+        price = item.find(class_='block price')
+        car['price_dollar'] = item.find(class_='block price').select_one('strong').get_text()
+        price.strong.extract()
+        car['price_soms'] = price.get_text().strip()
+        list_result_of_cars.append(car)
+
 
 
 def get_all_pages():
-    count = 1
+    count = 200
     base_url = "https://www.mashina.kg/search/honda/all/?currency=2&sort_by=upped_at+desc&page="
     headers = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) '
@@ -57,7 +58,7 @@ def get_all_pages():
 
 
 get_all_pages()
-
+print(list_result_of_cars)
 # req = request.Request(base_url, headers=headers)
 # response = request.urlopen(req)
 # get_quantity_cars(body=response)
